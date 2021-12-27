@@ -26,13 +26,14 @@ function searchGiphy(search) {
 async function handleForm(e) {
   e.preventDefault();
   const city = document.querySelector("input").value;
+  result.textContent = "Loading...";
   try {
     const weather = await getWeather(city);
-    result.textContent = `${city}'s weather: ${weather.description}`;
     searchGiphy(`weather ${weather.main}`).then((url) => {
       body.style.backgroundImage = "";
       body.style.backgroundImage = `url(${url})`;
     });
+    result.textContent = `${city}'s weather: ${weather.description}`;
   } catch {
     result.textContent = "Cant find your city... Try another query!";
   }
